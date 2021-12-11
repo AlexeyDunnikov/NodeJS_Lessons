@@ -28,6 +28,23 @@ const server = http.createServer((req, res) => {
           res.end(content);
         }
       );
+    }else if(req.url === '/api/users'){
+        res.writeHead(200, {
+            'Content-Type': 'text/json'
+        })
+
+        const users = [
+            {
+                name: 'Alexey',
+                age: 18,
+            },
+            {
+                name: 'Michail',
+                age: 10,
+            }
+        ]
+
+        res.end(JSON.stringify(users));
     }
 
   } else if (req.method === "POST") {
