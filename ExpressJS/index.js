@@ -17,6 +17,9 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 app.use(express.static('public'));
+app.use(express.urlencoded({
+    extended: true
+}))
 //Registration rotes
 app.use('/', homeRoutes);
 app.use('/add', addRoutes);
