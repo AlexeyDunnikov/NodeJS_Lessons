@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const exphbs = require("express-handlebars");
+const session = require('express-session');
 const homeRoutes = require("./routes/home");
 const addRoutes = require("./routes/add");
 const coursesRoutes = require("./routes/courses");
@@ -9,6 +10,7 @@ const cardRoutes = require("./routes/card");
 const ordersRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
 const User = require("./models/user");
+const varMiddleware = require('./midlware/variables')
 
 const Handlebars = require("handlebars");
 const {
@@ -43,6 +45,12 @@ app.use(
     extended: true,
   })
 );
+app.use(session({
+  secret: 'some secret value',
+  resave: false,
+  saveUninitialized: false,
+}));
+app.use(varMiddleware);
 
 //Registration rotes
 app.use("/", homeRoutes);
