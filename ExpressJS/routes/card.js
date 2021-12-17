@@ -5,7 +5,9 @@ const router = Router();
 
 function mapCartItems(cart){
     return cart.items.map(c => ({
-        ...c.courseId._doc, count: c.count
+        ...c.courseId._doc, 
+        id: c.courseId.id,
+        count: c.count,
     }))
 }
 
@@ -21,10 +23,18 @@ router.post('/add', async (req, res) => {
     res.redirect('/card');
 })
 
-// router.delete('/remove/:id', async (req, res) => {
-//     const card = await Card.remove(req.params.id);
-//     res.status(200).json(card);
-// })
+router.delete('/remove/:id', async (req, res) => {
+    await req.user.removeFromCart(req.params.id);
+    const user = await req.user.populate('cart.items.courseId');
+    
+    const courses = mapCartItems(user.cart);
+    const cart = {
+        courses,
+        price: computePrice(courses),
+    }
+
+    res.status(200).json(cart);
+})
 
 router.get('/', async(req, res) => {
     const user = await req.user.populate('cart.items.courseId');

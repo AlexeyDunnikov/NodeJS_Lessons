@@ -42,7 +42,27 @@ userSchema.methods.addToCart = function (course) {
     });
   }
 
-  this.cart = {items: clonedItems};
+  this.cart = { items: clonedItems };
+  return this.save();
+};
+
+userSchema.methods.removeFromCart = function (id) {
+  let clonedItems = [...this.cart.items];
+  const ind = clonedItems.findIndex(
+    (c) => c.courseId.toString() === id.toString()
+  );
+
+  if (ind >= 0) {
+    if (clonedItems[ind].count === 1) {
+      clonedItems = clonedItems.filter(
+        (c) => c.courseId.toString() !== id.toString()
+      );
+    } else {
+      clonedItems[ind].count--;
+    }
+  }
+
+  this.cart = { items: clonedItems };
   return this.save();
 };
 
