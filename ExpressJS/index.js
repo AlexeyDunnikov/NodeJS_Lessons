@@ -13,7 +13,8 @@ const cardRoutes = require("./routes/card");
 const ordersRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
 const User = require("./models/user");
-const varMiddleware = require('./middleware/variables')
+const varMiddleware = require('./middleware/variables');
+const userMiddleware = require('./middleware/user');
 
 const Handlebars = require("handlebars");
 const {
@@ -51,7 +52,10 @@ app.use(session({
   saveUninitialized: false,
   store,
 }));
+
+//Middlewares
 app.use(varMiddleware);
+app.use(userMiddleware);
 
 //Registration rotes
 app.use("/", homeRoutes);

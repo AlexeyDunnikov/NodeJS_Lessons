@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const User = require('../models/user');
+const User = require("../models/user");
 const router = Router();
 
 router.get("/login", async (req, res) => {
@@ -16,15 +16,55 @@ router.get("/logout", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const user = await User.findById("61baf4bc3f36398550de9a73");
-  req.session.user = user;
-  req.session.isAuthenticated = true;
-  req.session.save((err) => {
-    if (err) {
-      throw err;
+  try {
+    const { email, password } = req.body;
+
+    const candidate = await User.findOne({ email });
+
+    if (candidate) {
+      if (password === candidate.password) {
+        const user = candidate;
+        req.session.user = user;
+        req.session.isAuthenticated = true;
+        req.session.save((err) => {
+          if (err) {
+            throw err;
+          }
+          res.redirect("/");
+        });
+      } else {
+        res.redirect("/auth/login#login");
+      }
+    } else {
+      res.redirect("/auth/login#login");
     }
-    res.redirect("/");
-  });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.post("/registration", async (req, res) => {
+  try {
+    const { email, name, password, repeat } = req.body;
+    const candidate = await User.findOne({ email });
+
+    if (candidate) {
+      res.redirect("/auth/login#registration");
+    } else {
+      const user = new User({
+        email,
+        name,
+        password,
+        cart: {
+          items: [],
+        },
+      });
+      await user.save();
+      res.redirect("/auth/login#login");
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;
