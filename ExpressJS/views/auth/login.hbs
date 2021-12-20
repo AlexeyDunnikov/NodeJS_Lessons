@@ -7,6 +7,11 @@
       </ul>
     </div>
     <div id="login" class="col s6 offset-s3">
+
+      {{#if loginError}}
+        <p class="alert">{{loginError}}</p>
+      {{/if}}
+
       <h1>Login in shop</h1>
       <form action="/auth/login" method="POST">
         <div class="input-field">
@@ -33,12 +38,17 @@
           <span class="helper-text" data-error="Input password"></span>
         </div>
 
+        <input type="hidden" name="_csrf" value="{{csrf}}" />
+
         <button class="btn btn-primary" type="submit">
           Login
         </button>
       </form>
     </div>
     <div id="registration" class="col s6 offset-s3">
+      {{#if regError}}
+        <p class="alert">{{regError}}</p>
+      {{/if}}
       <h1>Registration in shop</h1>
       <form action="/auth/registration" method="POST">
         <div class="input-field">
@@ -54,13 +64,7 @@
         </div>
 
         <div class="input-field">
-          <input
-            id="name"
-            name="name"
-            type="text"
-            class="validate"
-            required
-          />
+          <input id="name" name="name" type="text" class="validate" required />
           <label for="name">Name</label>
           <span class="helper-text" data-error="Input name"></span>
         </div>
@@ -88,6 +92,8 @@
           <label for="confirm">Repeat password</label>
           <span class="helper-text" data-error="Input password"></span>
         </div>
+
+        <input type="hidden" name="_csrf" value="{{csrf}}" />
 
         <button class="btn btn-primary" type="submit">
           Registration

@@ -7,6 +7,8 @@ router.get("/login", async (req, res) => {
   res.render("auth/login", {
     title: "Authorization",
     isLogin: true,
+    loginError: req.flash('loginError'),
+    regError: req.flash('regError'),
   });
 });
 
@@ -35,9 +37,11 @@ router.post("/login", async (req, res) => {
           res.redirect("/");
         });
       } else {
+        req.flash("loginError", "Неверный пароль");
         res.redirect("/auth/login#login");
       }
     } else {
+      req.flash('loginError', "Такого пользователя не существует");
       res.redirect("/auth/login#login");
     }
   } catch (err) {
@@ -51,6 +55,7 @@ router.post("/registration", async (req, res) => {
     const candidate = await User.findOne({ email });
 
     if (candidate) {
+      req.flash('regError', 'Пользователь с таким email уже существует');
       res.redirect("/auth/login#registration");
     } else {
       const hashPassword = await bcrypt.hash(password, 10);
