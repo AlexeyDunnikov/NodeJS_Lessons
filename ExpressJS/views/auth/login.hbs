@@ -50,13 +50,14 @@
         <p class="alert">{{regError}}</p>
       {{/if}}
       <h1>Registration in shop</h1>
-      <form action="/auth/registration" method="POST">
+      <form action="/auth/registration" method="POST" novalidate>
         <div class="input-field">
           <input
             id="reg-email"
             name="email"
             type="email"
             class="validate"
+            
             required
           />
           <label for="reg-email">Email</label>
