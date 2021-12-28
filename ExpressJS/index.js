@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
+const compression = require('compression');
 const path = require("path");
 const csrf = require("csurf");
 const flash = require("connect-flash");
@@ -62,6 +64,8 @@ app.use(
 app.use(fileMiddleware.single('avatar'));
 app.use(csrf());
 app.use(flash());
+app.use(helmet());
+app.use(compression());
 
 //Middlewares
 app.use(varMiddleware);
