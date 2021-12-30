@@ -1,0 +1,6 @@
+include header 
+
+h2 MyApp
+each val, index in goods 
+    p #{val['name']}
+    img(src='images/' + val['image'], class="image")
