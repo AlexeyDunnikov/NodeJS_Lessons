@@ -1,0 +1,19 @@
+include header 
+
+div(class="wrap")
+    div(class="content")
+        header(class="site-header")
+            include site_header 
+
+        div(class="container")
+            div(class="row")
+                div(class="col col-md-12")
+                    h2(class="panel-title") #{goods.name}
+                div(class="col col-md-4")
+                    img(
+                        src=`images/${goods.image}`
+                        class="goods-big-image"
+                    )
+                div(class="col col-md-8")
+                    p #{goods.description}
+                    span(class="success price") Цена: #{goods.cost}
