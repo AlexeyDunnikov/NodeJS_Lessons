@@ -1,23 +1,25 @@
 include header 
 
-div(class="wrap")
-    div(class="content")
-        header(class="site-header")
-            include site_header 
 
-        div(class="container")
-            div(class="row")
-                div(class="col col-md-12")
-                    h2(class="panel-title") #{goods.name}
-                div(class="col col-md-4")
-                    img(
-                        src=`images/${goods.image}`
-                        class="goods-big-image"
-                    )
-                div(class="col col-md-8")
-                    p #{goods.description}
-                    span(class="success price") Цена: #{goods.cost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
-                    button(
-                        class="btn btn-success add-to-cart"
-                        data-goods_id=goods.id
-                    ) to cart
+include site_header
+
+div(class="item")
+    div(class="container")
+        
+        div(class="item__inner")
+            div(class="item__img-box")
+                img(
+                    src=`images/${goods.image}`
+                    class="goods-big-image"
+                )
+            div(class="item__content")
+                h2(class="item__content-title") #{goods.name}
+                p(class="item__content-text") #{goods.description}
+                p(class="item__content-price") Цена: #{goods.cost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
+                button(
+                    class="btn item__btn"
+                    data-goods_id=goods.id
+                ) To cart
+
+include nav
+include footer 

@@ -2,22 +2,146 @@
     font-family: 'sans-serif';
 }
 
+body{
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+}
+
+p{
+    margin: 0;
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
 img{
+    display: block;
     max-width: 100%;
 }
 
-.block-1 {
-    width: 150px;
-    height: 150px;
-    background: bisque;
-    border: 2px solid #666;
-    margin: 50px;
+button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
-.red {
-    background: red;
+.btn{
+    font-size: 18px;
+    line-height: 22px;
 }
 
-.green {
-    border: 4px solid green;
+.container{
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.header{
+    padding: 15px 0;
+    background-color: #1F1FF9;
+    margin-bottom: 25px;
+}
+
+.header__title{
+    color: #fff;
+}
+
+.catalog__inner{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-gap: 30px;
+    margin-bottom: 100px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+}
+
+.card__title{
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.card__link{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card__text{
+    margin-bottom: 15px;
+}
+
+.card__image{
+    margin: 0 auto;
+    object-fit: cover;
+    height: 100%;
+    max-height: 200px;
+    margin-bottom: 10px;
+}
+
+.card__btn{
+    color: #fff;
+    background-color: #36b12e;
+    padding: 8px 15px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.site-nav{
+    background-color: blue;
+}
+
+.item{
+    margin-bottom: 100px;
+}
+
+.item__inner{
+    display: flex;
+    align-items: flex-start;
+}
+
+.item__content-title{
+    margin-bottom: 20px;
+}
+
+.item__img-box{
+    max-width: 500px;
+    margin-right: 70px;
+}
+
+.item__content{
+    max-width: 700px;
+}
+
+.item__content-text{
+    margin-bottom: 15px;
+}
+
+.item__content-price{
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.item__btn{
+    color: #fff;
+    background-color: #36b12e;
+    padding: 6px 15px;
+    border-radius: 5px;
 }
