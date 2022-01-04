@@ -59,7 +59,7 @@ app.get('/cat', (req, res) => {
 
     Promise.all([cat, goods]).then((value) => {
         console.log(JSON.parse(JSON.stringify(value[0])));
-        res.render('cat', {
+        res.render('category', {
             cat: JSON.parse(JSON.stringify(value[0]))[0],
             goods: JSON.parse(JSON.stringify(value[1])),
         })
@@ -77,3 +77,13 @@ app.get('/goods', (req, res) => {
         }
     )
 })
+
+app.post("/get-category-list", (req, res) => {
+  connection.query(
+    `SELECT id, category FROM category`,
+    (err, result, fields) => {
+      if (err) throw err;
+      res.json(result);
+    }
+  );
+});

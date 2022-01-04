@@ -1,9 +1,14 @@
-include header 
+include partials/header 
 
-include site_header
+include partials/site_header
+include partials/nav
 
 div(class="catalog")
     div(class="container")
         div(class="catalog__inner")
             each val, index in goods 
-                include card
+                include partials/card
+
+include partials/footer
+
+

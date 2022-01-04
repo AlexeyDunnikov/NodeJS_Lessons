@@ -1,0 +1,15 @@
+div(class="site-nav")
+    button(class="btn site-nav__close-btn")
+        <svg class="site-nav__close-btn__img" width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 6L18 18" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    h3(class="site-nav__header site-nav__header--underlined") Категории 
+    ul(class="site-nav__category-list site-nav__items-list")
+        li(class="category-list__item")
+            a(class="category-list__item-link" href="/") Главная
+    h3(class='site-nav__header') Корзина 
+    div(class="cart-nav")
+    div(class="text-right")
+        a(href="/order" target="_blank") 
+            button(class="btn btn-primary-outlined") Заказы

@@ -1,0 +1,16 @@
+include partials/header 
+
+include partials/site_header 
+include partials/nav
+
+div(class="category")
+    div(class="container")
+        h2(class="category__title") #{cat.category}
+        div(class="category__inner")
+            each val, index in goods 
+                include partials/card
+
+        div #{cat.description}
+
+include partials/footer
+
