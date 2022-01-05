@@ -91,9 +91,12 @@ app.post("/get-category-list", (req, res) => {
 });
 
 app.post("/get-goods-info", (req, res) => {
-  const goods = {};
+  if (req.body.key.length === 0){
+    res.send('0');
+    return;
+  }
 
-  console.log(req.body.key);
+  const goods = {};
   const keys = req.body.key;
 
   connection.query(
@@ -104,7 +107,7 @@ app.post("/get-goods-info", (req, res) => {
       result.forEach(item => {
         goods[item.id] = item;
       })
-      
+
       res.json(goods);
     }
   );

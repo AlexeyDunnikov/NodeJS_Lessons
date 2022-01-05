@@ -17,7 +17,7 @@ div(class="item")
                 p(class="item__content-text") #{goods.description}
                 p(class="item__content-price") Цена: #{goods.cost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
                 button(
-                    class="btn item__btn btn-to-cart"
+                    class="btn item__btn btn-to-cart add-to-cart"
                     data-goods_id=goods.id
                 ) В корзину
 

@@ -226,6 +226,34 @@ button {
   margin-bottom: 50px;
 }
 
+.cart-nav{
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.cart-item__info{
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-item:not(:last-of-type){
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.cart-item:not(:last-of-type)::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: #fff;
+}
+
 .footer{
   padding: 20px 0;
   background-color: #1f1ff9;
