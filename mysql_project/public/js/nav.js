@@ -15,10 +15,7 @@ function getCategoryList() {
     method: "POST",
   })
     .then((res) => res.text())
-    .then((body) => {
-      console.log(body);
-      showCategoryList(JSON.parse(body));
-    });
+    .then((body) => showCategoryList(JSON.parse(body)));
 }
 
 function showCategoryList(data) {

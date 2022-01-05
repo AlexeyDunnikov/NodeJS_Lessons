@@ -3,9 +3,9 @@ div(class="card")
         h3(class="card__title") #{val.name}
         img(class="card__image" src="images/"+val.image)
         p(class="card__text") #{val.cost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')} BYN 
-        ul(class="card-actions")
-            li  
-                button(
-                    data-goods_id = val.id
-                    class="btn card__btn btn-to-cart"
-                ) В корзину
+    ul(class="card-actions")
+        li  
+            button(
+                data-goods_id = val.id
+                class="btn card__btn btn-to-cart add-to-cart"
+            ) В корзину
