@@ -134,7 +134,11 @@ button {
   color: #fff;
 }
 
-.catalog__inner {
+.catalog__category-title{
+  margin-bottom: 30px;
+}
+
+.catalog__category-inner {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-gap: 30px;

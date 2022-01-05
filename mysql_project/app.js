@@ -20,65 +20,71 @@ app.listen(3000, () => {
 });
 
 app.get("/", (req, res) => {
-  connection.query("SELECT * FROM goods", (err, result) => {
-    if (err) throw err;
-    //console.log(result);
+  const goods = new Promise((resolve, reject) => {
+    connection.query("SELECT * FROM goods", (err, result, fields) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
 
-    const goods = {};
-    for (let i = 0; i < result.length; i++) {
-      goods[result[i]["id"]] = result[i];
-    }
+  const categories = new Promise((resolve, reject) => {
+    connection.query("SELECT * FROM category", (err, result, fields) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
 
-    res.render("main", {
-      title: "Main",
-      goods: JSON.parse(JSON.stringify(goods)),
+  Promise.all([goods, categories]).then((value) => {
+    res.render('main', {
+      goods: JSON.parse(JSON.stringify(value[0])),
+      categories: JSON.parse(JSON.stringify(value[1])),
+    })
+  });
+});
+
+app.get("/cat", (req, res) => {
+  const catId = req.query.id;
+
+  const cat = new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT * FROM category WHERE id=${+catId}`,
+      (err, result) => {
+        if (err) reject(err);
+        resolve(result);
+      }
+    );
+  });
+
+  const goods = new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT * FROM goods WHERE category=${+catId}`,
+      (err, result) => {
+        if (err) reject(err);
+        resolve(result);
+      }
+    );
+  });
+
+  Promise.all([cat, goods]).then((value) => {
+    console.log(JSON.parse(JSON.stringify(value[0])));
+    res.render("category", {
+      cat: JSON.parse(JSON.stringify(value[0]))[0],
+      goods: JSON.parse(JSON.stringify(value[1])),
     });
   });
 });
 
-app.get('/cat', (req, res) => {
-    const catId = req.query.id;
-
-    const cat = new Promise((resolve, reject) => {
-        connection.query(
-            `SELECT * FROM category WHERE id=${+catId}`,
-            (err, result) => {
-                if (err) reject(err);
-                resolve(result);
-            }
-        )
-    });
-
-    const goods = new Promise((resolve, reject) => {
-        connection.query(
-            `SELECT * FROM goods WHERE category=${+catId}`,
-            (err, result) => {
-                if (err) reject(err);
-                resolve(result);
-            }
-        )
-    });
-
-    Promise.all([cat, goods]).then((value) => {
-        console.log(JSON.parse(JSON.stringify(value[0])));
-        res.render('category', {
-            cat: JSON.parse(JSON.stringify(value[0]))[0],
-            goods: JSON.parse(JSON.stringify(value[1])),
-        })
-    })
-})
-
-app.get('/goods', (req, res) => {
-    connection.query(
-        `SELECT * FROM goods WHERE id=${req.query.id}`,
-        (err, result, fields) => {
-            if (err) throw err;
-            res.render("goods", {
-              goods: JSON.parse(JSON.stringify(result))[0],
-            });
-        }
-    )
-})
+app.get("/goods", (req, res) => {
+  connection.query(
+    `SELECT * FROM goods WHERE id=${req.query.id}`,
+    (err, result, fields) => {
+      if (err) throw err;
+      res.render("goods", {
+        goods: JSON.parse(JSON.stringify(result))[0],
+      });
+    }
+  );
+});
 
 app.post("/get-category-list", (req, res) => {
   connection.query(
@@ -91,8 +97,8 @@ app.post("/get-category-list", (req, res) => {
 });
 
 app.post("/get-goods-info", (req, res) => {
-  if (req.body.key.length === 0){
-    res.send('0');
+  if (req.body.key.length === 0) {
+    res.send("0");
     return;
   }
 
@@ -100,13 +106,13 @@ app.post("/get-goods-info", (req, res) => {
   const keys = req.body.key;
 
   connection.query(
-    `SELECT id, name, cost FROM goods WHERE id IN (${keys.join(',')})`,
+    `SELECT id, name, cost FROM goods WHERE id IN (${keys.join(",")})`,
     (err, result, fields) => {
       if (err) throw err;
 
-      result.forEach(item => {
+      result.forEach((item) => {
         goods[item.id] = item;
-      })
+      });
 
       res.json(goods);
     }
