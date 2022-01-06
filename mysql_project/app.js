@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const app = express();
 
+
 app.use(express.static("public"));
 
 app.set("view engine", "pug");
@@ -132,7 +133,10 @@ app.post("/finish-order", (req, res) => {
       (err, result, fields) => {
         if (err) throw err;
 
-        sendMail(req.body, result).catch(console.error);
+        sendMail(req.body, result)
+        // .catch(err){
+        //   (console.error);
+        // }
 
         res.send('1');
       }
@@ -145,5 +149,5 @@ app.post("/finish-order", (req, res) => {
 });
 
 function sendMail(data, result){
-
+  return true;
 }
