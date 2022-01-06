@@ -10,19 +10,19 @@ div(class="order")
         form(class='order__form alex-shop-order' action="")
             div(class="order__form-row")
                 label(class="order__form-label" for='username') Имя
-                input(class="order__form-input" type="text" id="username" placeholder="Введите ваше имя")
+                input(class="order__form-input" type="text" id="username" value="Alexey" placeholder="Введите ваше имя")
             div(class="order__form-row")
                 label(class="order__form-label" for='phone') Телефон
-                input(class="order__form-input" type="text" id="phone" placeholder="+375333903303")
+                input(class="order__form-input" type="text" id="phone" value="+375333903303" placeholder="+375333903303")
             div(class="order__form-row")
                 label(class="order__form-label" for='email') E-mail
-                input(class="order__form-input" type="text" id="email" placeholder="mail@gmail.com")
+                input(class="order__form-input" type="text" id="email" value="dynnikovleha@gmail.com" placeholder="mail@gmail.com")
             div(class="order__form-row")
                 label(class="order__form-label" for='address') Адрес
-                input(class="order__form-input" type="text" id="address" placeholder="Введите ваш адрес")
+                input(class="order__form-input" type="text" id="address" value="Кабяка 37" placeholder="Введите ваш адрес")
             div(class="order__form-row")
                 label(class="order__form-label" for='rule') 
-                input(class="order__form-input" type="checkbox" id="rule" value="1")
+                input(class="order__form-input" checked type="checkbox" id="rule" value="1")
                 span Соглашения и условия пользования
             div(class="order__form-row")
                 button(class="order__form-btn" type="submit") Оформить заказ

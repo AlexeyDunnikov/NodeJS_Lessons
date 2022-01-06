@@ -1,7 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const app = express();
-
+const nodemailer = require("nodemailer");
 
 app.use(express.static("public"));
 
@@ -133,21 +133,70 @@ app.post("/finish-order", (req, res) => {
       (err, result, fields) => {
         if (err) throw err;
 
-        sendMail(req.body, result)
+        sendEMail(req.body, result);
         // .catch(err){
         //   (console.error);
         // }
 
-        res.send('1');
+        //res.send("1");
       }
     );
-
-    res.send("1");
   } else {
     res.send("0");
   }
 });
 
-function sendMail(data, result){
+async function sendEMail(data, result) {
+  let total = 0;
+  let res = "<h2>Заказ alex shop</h2>";
+
+  result.forEach(item => {
+    res += `<p>${item.name}: ${data.key[item.id]} - ${getPrice(
+      item.cost * data.key[item.id]
+    )}</p>`;
+    total += item.cost * data.key[item.id];
+  });
+  res += '<hr>';
+  res += `<h3>Итого: ${getPrice(total)}</h3>`
+  res += '<hr>';
+  res += `<p>Имя: ${data.username}</p>`;
+  res += '<hr>';
+  res += `<p>Телефон: ${data.phone}</p>`;
+  res += '<hr>';
+  res += `<p>E-mail: ${data.email}</p>`;
+  res += '<hr>';
+  res += `<p>Адрес: ${data.address}</p>`;
+
+  let testAccount = await nodemailer.createTestAccount();
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+
+  let mailOptions = {
+    from: "<dunnikov223@gmail.com>",
+    to: `dunnkov223@gmail.com, ${data.email}`,
+    subject: "Alex shop order",
+    text: "hello",
+    html: res,
+  };
+
+  let info = await transporter.sendMail(mailOptions);
+
+  console.log("Message sent %s", info.messageId);
+  console.log("Preview sent %s", nodemailer.getTestMessageUrl(info));
+
   return true;
+}
+
+function getPrice(price) {
+  return new Intl.NumberFormat("ru-RU", {
+    currency: "BYN",
+  }).format(price);
 }
