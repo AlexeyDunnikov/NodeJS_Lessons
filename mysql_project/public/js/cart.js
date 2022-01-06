@@ -43,6 +43,8 @@ function ajaxGetGoodsInfo() {
 function showCart(data) {
   const cartNav = document.querySelector(".cart-nav");
 
+  if (!cartNav) return;
+
   const container = document.createElement("div");
 
   let total = 0;

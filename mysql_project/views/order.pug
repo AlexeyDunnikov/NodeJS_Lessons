@@ -1,0 +1,33 @@
+include partials/header 
+include partials/site_header_order
+
+div(class="order")
+    div(class="container")
+        div(class="order__header")
+            h3(class="order__header-title") Корзина
+            ul(class="order__cart cart-nav")
+        h3(class="order__title")
+        form(class='order__form alex-shop-order' action="")
+            div(class="order__form-row")
+                label(class="order__form-label" for='username') Имя
+                input(class="order__form-input" type="text" id="username" placeholder="Введите ваше имя")
+            div(class="order__form-row")
+                label(class="order__form-label" for='phone') Телефон
+                input(class="order__form-input" type="text" id="phone" placeholder="+375333903303")
+            div(class="order__form-row")
+                label(class="order__form-label" for='email') E-mail
+                input(class="order__form-input" type="text" id="email" placeholder="mail@gmail.com")
+            div(class="order__form-row")
+                label(class="order__form-label" for='address') Адрес
+                input(class="order__form-input" type="text" id="address" placeholder="Введите ваш адрес")
+            div(class="order__form-row")
+                label(class="order__form-label" for='rule') 
+                input(class="order__form-input" type="checkbox" id="rule" value="1")
+                span Соглашения и условия пользования
+            div(class="order__form-row")
+                button(class="order__form-btn" type="submit") Оформить заказ
+
+
+
+include partials/footer
+script(src="js/order.js")

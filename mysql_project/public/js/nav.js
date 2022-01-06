@@ -1,14 +1,16 @@
 const nav = document.querySelector(".site-nav");
 
-document
-  .querySelector(".site-nav__close-btn")
-  .addEventListener("click", closeNav);
+if (nav) {
+  document
+    .querySelector(".site-nav__close-btn")
+    .addEventListener("click", closeNav);
 
-document
-  .querySelector(".site-nav__open-btn")
-  .addEventListener("click", openNav);
+  document
+    .querySelector(".site-nav__open-btn")
+    .addEventListener("click", openNav);
 
-getCategoryList();
+  getCategoryList();
+}
 
 function getCategoryList() {
   fetch("/get-category-list", {

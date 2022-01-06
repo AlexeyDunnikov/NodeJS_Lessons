@@ -35,10 +35,10 @@ app.get("/", (req, res) => {
   });
 
   Promise.all([goods, categories]).then((value) => {
-    res.render('main', {
+    res.render("main", {
       goods: JSON.parse(JSON.stringify(value[0])),
       categories: JSON.parse(JSON.stringify(value[1])),
-    })
+    });
   });
 });
 
@@ -66,7 +66,6 @@ app.get("/cat", (req, res) => {
   });
 
   Promise.all([cat, goods]).then((value) => {
-    console.log(JSON.parse(JSON.stringify(value[0])));
     res.render("category", {
       cat: JSON.parse(JSON.stringify(value[0]))[0],
       goods: JSON.parse(JSON.stringify(value[1])),
@@ -84,6 +83,10 @@ app.get("/goods", (req, res) => {
       });
     }
   );
+});
+
+app.get("/order", (req, res) => {
+  res.render("order");
 });
 
 app.post("/get-category-list", (req, res) => {
@@ -118,3 +121,29 @@ app.post("/get-goods-info", (req, res) => {
     }
   );
 });
+
+app.post("/finish-order", (req, res) => {
+  console.log(req.body);
+  if (req.body.key.length !== 0) {
+    let keys = Object.keys(req.body.key);
+
+    connection.query(
+      `SELECT id, name, cost FROM goods WHERE id IN (${keys.join(",")})`,
+      (err, result, fields) => {
+        if (err) throw err;
+
+        sendMail(req.body, result).catch(console.error);
+
+        res.send('1');
+      }
+    );
+
+    res.send("1");
+  } else {
+    res.send("0");
+  }
+});
+
+function sendMail(data, result){
+
+}
